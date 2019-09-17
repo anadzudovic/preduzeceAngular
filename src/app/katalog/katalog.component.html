@@ -1,0 +1,80 @@
+<br>
+<div class="search-div">
+    <button mat-raised-button (click)="create()" color="primary">
+        <mat-icon>add</mat-icon>Novi katalog
+    </button>
+    <br>
+    <br>
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" color="primary" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="katalogId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                    <mat-label>Id</mat-label>
+                    <input matInput [formControl]="idFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.katalogId}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="naziv">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter">
+                    <mat-label>Naziv</mat-label>
+                    <input matInput [formControl]="nazivFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.naziv}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="datumOd">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter">
+                    <mat-label>Datum od</mat-label>
+                    <input matInput [formControl]="datumOdFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.datumOd}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="datumDo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter">
+                    <mat-label>Datum do</mat-label>
+                    <input matInput [formControl]="datumDoFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.datumDo}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter">
+                    <mat-label>Status</mat-label>
+                    <input matInput [formControl]="statusFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Pregled / Izmena / Brisanje</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" matTooltip="Pregled" (click)="view(row)">
+                    <mat-icon>info</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Izmena" (click)="edit(row)" *ngIf="priprema(row)">
+                    <mat-icon>launch</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" matTooltip="Brisanje" (click)="delete(row)" *ngIf="priprema(row)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

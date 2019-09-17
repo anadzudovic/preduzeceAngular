@@ -1,0 +1,68 @@
+<mat-dialog-content>
+    <mat-toolbar color="primary" class="toolBar">
+        <div class="mat-display-5" *ngIf="service.createKatalog">Unos novog kataloga</div>
+        <div class="mat-display-5" *ngIf="service.updateKatalog">Izmena kataloga</div>
+        <div class="mat-display-5" *ngIf="service.viewKatalog">Pregled kataloga</div>
+        <span class="fill-remaining-space"></span>
+        <button class="btn-dialog-close" mat-stroked-button (click)="close()" tabIndex="-1">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </mat-toolbar>
+    <form [formGroup]="service.form" class="normal-form">
+
+        <div class="controles-container">
+            <div class="row">
+                <div class="col-md-6" *ngIf="!service.createKatalog">
+                    <mat-form-field>
+                        <input formControlName="katalogId" matInput placeholder="Katalog Id" readonly>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input formControlName="naziv" matInput placeholder="Naziv*" [readonly]="service.viewKatalog">
+                        <mat-error>Obavezno polje</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input formControlName="datumOd" matInput [matDatepicker]="myDP" matInput placeholder="Datum od"
+                            [readonly]="service.viewKatalog">
+                        <mat-datepicker-toggle [for]="myDP" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #myDP startView="year"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input formControlName="datumDo" [min]="service.minDate()" matInput [matDatepicker]="myDP2"
+                            matInput placeholder="Datum do" [readonly]="service.viewKatalog">
+                        <mat-datepicker-toggle [for]="myDP2" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #myDP2 startView="year"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field *ngIf="!service.createKatalog">
+                        <input formControlName="status" matInput placeholder="Status" readonly>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <app-igracke-tabela *ngIf="!service.viewKatalog"></app-igracke-tabela>
+    <br>
+    <app-stavke-tabela></app-stavke-tabela>
+    <br>
+    <br>
+    <button class="save" mat-raised-button *ngIf="service.createKatalog" color="primary" (click)="save()"
+        [disabled]="service.form.invalid">Sačuvaj</button>
+    <button class="update1" mat-raised-button *ngIf="service.updateKatalog" color="primary" (click)="update()"
+        [disabled]="service.form.invalid">Izmeni</button>
+    <br>
+    <br>
+    <button class="update2" mat-raised-button *ngIf="service.updateKatalog" color="accent" (click)="updateZakljuci()"
+        [disabled]="service.form.invalid">Izmeni i Zakljuci</button>
+</mat-dialog-content>

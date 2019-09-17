@@ -1,0 +1,10 @@
+
+<div>
+    <div class="content-container">
+      <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+      <span class="content-span full-width"> Da li zelite da obrisete igracku?</span>
+    </div>
+    
+    <button mat-flat-button id="yes-button" color="primary" [mat-dialog-close]="true">DA</button>
+    <button mat-flat-button id="no-button" color="warn" [mat-dialog-close]="false">NE</button>
+  </div>

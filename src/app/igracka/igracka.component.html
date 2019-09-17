@@ -1,0 +1,101 @@
+<br>
+<div class="search-div">
+    <button mat-raised-button (click)="create()" color="primary">
+        <mat-icon>add</mat-icon>Nova igračka
+    </button>
+    <br>
+    <br>
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" color="primary" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="igrackaId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                    <mat-label>Id</mat-label>
+                    <input matInput [formControl]="idFilter">
+                </mat-form-field>
+
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.igrackaId}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="naziv">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                
+                <mat-form-field class="filter" >
+                    <mat-label>Naziv</mat-label>
+                    <input matInput [formControl]="nazivFilter">
+
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.naziv}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="trenutnaCena">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" >
+                    <mat-label>Trenutna cena</mat-label>
+                    <input matInput [formControl]="trenutnaCenaFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.trenutnaCena}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="stanjeNaZalihama">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" >
+                    <mat-label>Stanje na zalihama</mat-label>
+                    <input matInput [formControl]="stanjeNaZalihamaFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.stanjeNaZalihama}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pozicija">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> 
+                <mat-form-field class="filter" >
+                    <mat-label>Pozicija</mat-label>
+                    <input matInput [formControl]="pozicijaFilter">
+                </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.pozicija}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="opis">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> 
+                <mat-form-field class="filter" >
+                    <mat-label>Kratak opis</mat-label>
+                    <input matInput [formControl]="opisFilter">
+                </mat-form-field>
+
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.opis}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Pregled / Izmena / Brisanje</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" matTooltip="Pregled" (click)="view(row)">
+                    <mat-icon>info</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Izmena" (click)="edit(row)">
+                    <mat-icon>launch</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" matTooltip="Brisanje" (click)="delete(row)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
